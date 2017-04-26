@@ -150,7 +150,24 @@
     <li>description and source-code<pre class="apidocCodePre">cacheKey = function (key, type, name) {
     return key + &#x27;_&#x27; + type + (name ? &#x27;_&#x27; + name : &#x27;&#x27;);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+    case &#x27;objectgroup&#x27;:
+        lyr = new Objectlayer(game, this, ldata, this.objects.length);
+        this.objects.push(lyr);
+        break;
+
+    case &#x27;imagelayer&#x27;:
+        lyr = game.add.sprite(ldata.x, ldata.y, utils.<span class="apidocCodeKeywordSpan">cacheKey</span>(key, &#x27;layer&#x27;,
+ldata.name), null, this);
+
+        lyr.visible = ldata.visible;
+        lyr.apha = ldata.opacity;
+
+        this.images.push(lyr);
+        break;
+}
+...</pre></li>
     </ul>
 
 
@@ -177,7 +194,24 @@
 
     return buf;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+        // decode any encoded/compressed layers
+        if (Array.isArray(layers)) {
+            for (var i = 0; i &#x3c; layers.length; i++) {
+var layer = layers[i];
+
+if (layer &#x26;&#x26; layer.encoding === &#x27;base64&#x27;) {
+    var decomp = utils.<span class="apidocCodeKeywordSpan">decompressBase64Data</span>(layer.data, layer.encoding, layer.compression
+);
+
+    layer.data = new Uint32Array(decomp.buffer, 0, decomp.length / 4);
+
+    // remove metadata as layer is no longer encoded or compressed
+    delete layer.encoding;
+    delete layer.compression;
+}
+...</pre></li>
     </ul>
 
 
@@ -200,7 +234,23 @@
     texture.crop = null;
     texture._uvs = null;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+this.clearTiles();
+
+// this will destroy the tile sprites that are children of this group
+Phaser.Group.prototype.destroy.apply(this, arguments);
+
+// destroy all the animation textures
+for (var i = 0; i &#x3c; this._animTexturePool.length; ++i) {
+    utils.<span class="apidocCodeKeywordSpan">destroyTexture</span>(this._animTexturePool[i]);
+}
+
+this._tilePool = null;
+this._animTexturePool = null;
+
+this.bodies = null;
+this.tiles = null;
+...</pre></li>
     </ul>
 
 
@@ -238,7 +288,22 @@
 
     return shape;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+        } catch (e) {
+            // ignore error
+        }
+    }
+}
+
+if (obj.hitArea) {
+    obj.hitArea = utils.<span class="apidocCodeKeywordSpan">parseHitArea</span>(obj.hitArea);
+}
+
+if (obj.body === &#x27;static&#x27; || obj.sensor) {
+    obj.mass = Infinity;
+    obj.inertia = Infinity;
+}
+...</pre></li>
     </ul>
 
 
@@ -297,7 +362,23 @@
 
     return obj;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+/**
+ * The user-defined properties of this group. Usually defined in the TiledEditor
+ *
+ * @property properties
+ * @type Object
+ */
+this.properties = utils.<span class="apidocCodeKeywordSpan">parseTiledProperties</span>(layer.properties);
+
+/**
+ * The objects in this group that can be spawned
+ *
+ * @property objects
+ * @type Array
+ */
+...</pre></li>
     </ul>
 
 
@@ -319,7 +400,23 @@
 
     return buf;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+utils.cacheKey = function (key, type, name) {
+return key + &#x27;_&#x27; + type + (name ? &#x27;_&#x27; + name : &#x27;&#x27;);
+};
+
+utils.decompressBase64Data = function (raw, encoding, compression) {
+// TODO: This assumes base64 encoding, need to check encoding param
+var str = decodeB64(raw);
+var buf = utils.<span class="apidocCodeKeywordSpan">stringToBuffer</span>(str);
+
+// decompress
+if (compression === &#x27;gzip&#x27;) {
+    return zlib.gunzipSync(buf);
+}
+else if (compression === &#x27;zlib&#x27;) {
+    return zlib.inflateSync(buf);
+...</pre></li>
     </ul>
 
 
