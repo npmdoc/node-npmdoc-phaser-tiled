@@ -1,6 +1,6 @@
 # npmdoc-phaser-tiled
 
-#### api documentation for  [phaser-tiled (v2.0.2)](https://github.com/englercj/phaser-tiled)  [![npm package](https://img.shields.io/npm/v/npmdoc-phaser-tiled.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-phaser-tiled) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-phaser-tiled.svg)](https://travis-ci.org/npmdoc/node-npmdoc-phaser-tiled)
+#### basic api documentation for  [phaser-tiled (v2.0.2)](https://github.com/englercj/phaser-tiled)  [![npm package](https://img.shields.io/npm/v/npmdoc-phaser-tiled.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-phaser-tiled) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-phaser-tiled.svg)](https://travis-ci.org/npmdoc/node-npmdoc-phaser-tiled)
 
 #### A tilemap implementation for phaser focusing on large complex maps
 
@@ -92,7 +92,8 @@
         "url": "git+https://github.com/englercj/phaser-tiled.git"
     },
     "scripts": {},
-    "version": "2.0.2"
+    "version": "2.0.2",
+    "bin": {}
 }
 ```
 
